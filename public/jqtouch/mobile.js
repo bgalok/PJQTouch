@@ -15,4 +15,24 @@ var jQT = new $.jQTouch({
 
 jQuery(function() {
   // Add custom handler code here.
+  $("#month").bind("pageAnimationEnd", function (e, info) {
+    if (info.direction === "out") { return; }
+
+    var $page = $(this);
+    if ($page.data("loaded")) {
+      return;
+    }
+
+    $.getJSON("/month.json", function (data) {
+      var $li = $("#month ul:first li:first");
+      jQuery.each(data, function () {
+        var $clone = $li.clone();
+        $clone.html(this.title + "<small>" + this.quantity + "</small>");
+        $li.parent().append($clone);
+      });
+      $page.data("loaded", true);
+    });
+    alert("Animating #month " + info.direction);
+  });
+ 	 
 });
