@@ -1,4 +1,5 @@
 require "./lib/init"
+#require "app"
 
 set :root, File.dirname(__FILE__)
 
